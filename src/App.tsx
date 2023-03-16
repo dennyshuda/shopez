@@ -1,7 +1,16 @@
+import { Route, Routes } from "react-router";
+import Nav from "./components/Nav";
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
+
 function App() {
   return (
     <div className="App">
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
     </div>
   );
 }
