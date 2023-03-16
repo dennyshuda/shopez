@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Container from "../components/Container";
 import { ProductType } from "../types";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [products, setProducts] = useState<ProductType[]>();
@@ -33,15 +34,17 @@ export default function Home() {
             {products?.map((product) => {
               return (
                 <div key={product.id} className="w-3/12">
-                  <img
-                    className="aspect-square"
-                    src={product.image}
-                    alt={product.title}
-                  />
-                  <div className="text-center">
-                    <h1 className="font-bold">{product.title}</h1>
-                    <p>${product.price}</p>
-                  </div>
+                  <Link to={`/product/${product.id}`}>
+                    <img
+                      className="aspect-square"
+                      src={product.image}
+                      alt={product.title}
+                    />
+                    <div className="text-center">
+                      <h1 className="font-bold">{product.title}</h1>
+                      <p>${product.price}</p>
+                    </div>
+                  </Link>
                 </div>
               );
             })}
