@@ -40,11 +40,11 @@ export default function Home() {
                       src={product.image}
                       alt={product.title}
                     />
-                    <div className="text-center">
-                      <h1 className="font-bold">{product.title}</h1>
-                      <p>${product.price}</p>
-                    </div>
                   </Link>
+                  <div className="text-center">
+                    <h1 className="font-bold">{product.title}</h1>
+                    <p>${product.price}</p>
+                  </div>
                 </div>
               );
             })}
