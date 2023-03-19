@@ -12,9 +12,10 @@ export default function Product() {
   async function getAllProducts() {
     try {
       const response = await axios.get(
-        "https://fakestoreapi.com/products/" + id
+        "https://api.escuelajs.co/api/v1/products/" + id
       );
       setProduct(response.data);
+      console.log(response);
     } catch (error) {
       console.log(error);
     } finally {
@@ -33,7 +34,7 @@ export default function Product() {
         ) : (
           <div className="flex">
             <div className="w-1/2">
-              <img src={product?.image} alt="" />
+              <img src={product?.images[0]} alt="" />
             </div>
             <div className="w-1/2">
               <h1 className="text-3xl">{product?.title}</h1>
