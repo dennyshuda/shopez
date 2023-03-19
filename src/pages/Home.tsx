@@ -10,7 +10,10 @@ export default function Home() {
 
   async function getAllProducts() {
     try {
-      const response = await axios.get("https://fakestoreapi.com/products");
+      const response = await axios.get(
+        "https://api.escuelajs.co/api/v1/products"
+      );
+      console.log(response.data);
       setProducts(response.data);
     } catch (error) {
       console.log(error);
@@ -35,11 +38,7 @@ export default function Home() {
               return (
                 <div key={product.id} className="w-3/12">
                   <Link to={`/product/${product.id}`}>
-                    <img
-                      className="aspect-square"
-                      src={product.image}
-                      alt={product.title}
-                    />
+                    <img src={product.images[0]} alt="" />
                   </Link>
                   <div className="text-center">
                     <h1 className="font-bold">{product.title}</h1>
