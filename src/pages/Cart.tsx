@@ -2,7 +2,7 @@ import Container from "../components/Container";
 import { useCart } from "../context/CartContext";
 
 export default function Cart() {
-  const { cart, increaseAmount, removeFromCart } = useCart();
+  const { cart, increaseAmount, removeFromCart, decreaseAmount } = useCart();
   console.log(cart);
   return (
     <div>
@@ -17,7 +17,12 @@ export default function Cart() {
                 <h1>{product.title}</h1>
                 <p>${product.price}</p>
                 <div className="border-2 text-center inline-block">
-                  <span className="w-10 inline-block px-2 py-1">-</span>
+                  <span
+                    onClick={() => decreaseAmount(product.id)}
+                    className="w-10 inline-block px-2 py-1"
+                  >
+                    -
+                  </span>
                   <span className="w-10 inline-block px-2 py-1">
                     {product.amount}
                   </span>
