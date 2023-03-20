@@ -3,10 +3,13 @@ import axios from "axios";
 import Container from "../components/Container";
 import { ProductType } from "../types";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 export default function Home() {
   const [products, setProducts] = useState<ProductType[]>();
   const [loading, setLoading] = useState<boolean>(true);
+
+  const { addToCart } = useCart();
 
   async function getAllProducts() {
     try {
@@ -43,6 +46,9 @@ export default function Home() {
                   <div className="text-center">
                     <h1 className="font-bold">{product.title}</h1>
                     <p>${product.price}</p>
+                    <button onClick={() => addToCart(product, product.id)}>
+                      Add
+                    </button>
                   </div>
                 </div>
               );
