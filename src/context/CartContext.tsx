@@ -1,4 +1,10 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { ProductType } from "../types";
 
 interface Children {
@@ -7,6 +13,7 @@ interface Children {
 
 interface CartContextType {
   cart: ProductType[];
+  total: number;
   addToCart(product: ProductType, id: number): void;
   increaseAmount(id: number): void;
   removeFromCart(id: number): void;
@@ -21,6 +28,14 @@ export function useCart() {
 
 export default function CartContextProvider({ children }: Children) {
   const [cart, setCart] = useState<ProductType[]>([]);
+  const [total, setTotal] = useState<number>(0);
+
+  useEffect(() => {
+    const total = cart.reduce((accumulator, currentProduct) => {
+      return accumulator + currentProduct.price * currentProduct.amount;
+    }, 0);
+    setTotal(total);
+  });
 
   function addToCart(product: ProductType, id: number) {
     const newProductCart = { ...product, amount: 1 };
@@ -75,6 +90,7 @@ export default function CartContextProvider({ children }: Children) {
       value={{
         addToCart,
         cart,
+        total,
         increaseAmount,
         removeFromCart,
         decreaseAmount,
