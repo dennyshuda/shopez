@@ -14,6 +14,7 @@ interface Children {
 interface CartContextType {
   cart: ProductType[];
   total: number;
+  quantity: number;
   addToCart(product: ProductType, id: number): void;
   increaseAmount(id: number): void;
   removeFromCart(id: number): void;
@@ -29,12 +30,18 @@ export function useCart() {
 export default function CartContextProvider({ children }: Children) {
   const [cart, setCart] = useState<ProductType[]>([]);
   const [total, setTotal] = useState<number>(0);
+  const [quantity, setQuantity] = useState<number>(0);
 
   useEffect(() => {
     const total = cart.reduce((accumulator, currentProduct) => {
       return accumulator + currentProduct.price * currentProduct.amount;
     }, 0);
     setTotal(total);
+  });
+
+  useEffect(() => {
+    const quantity = cart.length;
+    setQuantity(quantity);
   });
 
   function addToCart(product: ProductType, id: number) {
@@ -91,6 +98,7 @@ export default function CartContextProvider({ children }: Children) {
         addToCart,
         cart,
         total,
+        quantity,
         increaseAmount,
         removeFromCart,
         decreaseAmount,

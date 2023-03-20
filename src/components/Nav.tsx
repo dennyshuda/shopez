@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import Container from "./Container";
+import { useCart } from "../context/CartContext";
 
 export default function Nav() {
+  const { quantity } = useCart();
   return (
     <nav className="py-5">
       <Container>
@@ -51,7 +53,7 @@ export default function Nav() {
                   </g>
                 </g>
               </svg>
-              <span>Cart (0)</span>
+              <span>Cart ({quantity})</span>
             </Link>
           </section>
         </div>
