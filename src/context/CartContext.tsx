@@ -6,7 +6,10 @@ interface Children {
 }
 
 interface CartContextType {
+  cart: ProductType[];
   addToCart(product: ProductType, id: number): void;
+  increaseAmount(id: number): void;
+  removeFromCart(id: number): void;
 }
 
 const CartContext = createContext({} as CartContextType);
@@ -22,7 +25,7 @@ export default function CartContextProvider({ children }: Children) {
     const newProductCart = { ...product, amount: 1 };
     const cartProduct = cart.find((product) => product.id === id);
     if (cartProduct) {
-      const newCart = [...cart].map((product) => {
+      const newCart = cart.map((product) => {
         if (product.id === id) {
           return { ...product, amount: cartProduct.amount + 1 };
         } else {
@@ -34,10 +37,23 @@ export default function CartContextProvider({ children }: Children) {
       setCart([...cart, newProductCart]);
     }
   }
-  console.log(cart);
+
+  function removeFromCart(id: number) {
+    const newCart = cart.filter((product) => product.id !== id);
+    setCart(newCart);
+  }
+
+  function increaseAmount(id: number) {
+    const products = cart.find((product) => {
+      product.id === id;
+      addToCart(product, id);
+    });
+  }
 
   return (
-    <CartContext.Provider value={{ addToCart }}>
+    <CartContext.Provider
+      value={{ addToCart, cart, increaseAmount, removeFromCart }}
+    >
       {children}
     </CartContext.Provider>
   );
