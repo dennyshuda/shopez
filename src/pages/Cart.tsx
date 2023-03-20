@@ -2,7 +2,8 @@ import Container from "../components/Container";
 import { useCart } from "../context/CartContext";
 
 export default function Cart() {
-  const { cart, increaseAmount, removeFromCart, decreaseAmount } = useCart();
+  const { cart, total, increaseAmount, removeFromCart, decreaseAmount } =
+    useCart();
   console.log(cart);
   return (
     <div>
@@ -42,7 +43,7 @@ export default function Cart() {
           );
         })}
         <div>
-          <span>Total: 40</span>
+          <span>Total: ${total}</span>
         </div>
       </Container>
     </div>
