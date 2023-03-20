@@ -4,6 +4,7 @@ import Container from "../components/Container";
 import { ProductType } from "../types";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { formatMoney } from "../utils/currency";
 
 export default function Home() {
   const [products, setProducts] = useState<ProductType[]>();
@@ -14,9 +15,8 @@ export default function Home() {
   async function getAllProducts() {
     try {
       const response = await axios.get(
-        "https://api.escuelajs.co/api/v1/products"
+        "https://api.escuelajs.co/api/v1/products?offset=0&limit=21"
       );
-      console.log(response.data);
       setProducts(response.data);
     } catch (error) {
       console.log(error);
@@ -45,7 +45,7 @@ export default function Home() {
                   </Link>
                   <div className="text-center">
                     <h1 className="font-bold">{product.title}</h1>
-                    <p>${product.price}</p>
+                    <p>{formatMoney(product.price)}</p>
                     <button onClick={() => addToCart(product, product.id)}>
                       Add
                     </button>
