@@ -6,6 +6,7 @@ export interface ProductType {
   description: number;
   creationAt: string;
   updatedAt: string;
+  amount: number;
   category: {
     id: number;
     name: string;
