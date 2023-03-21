@@ -2,9 +2,11 @@ import { useParams } from "react-router";
 import Container from "../components/Container";
 import { formatMoney } from "../utils/currency";
 import { useProduct } from "../hooks/useProduct";
+import { useCart } from "../context/CartContext";
 
 export default function Product() {
   const { id } = useParams();
+  const { addToCart } = useCart();
   const { products, loading } = useProduct();
 
   const detailProduct = products?.find((item) => item.id === Number(id));
@@ -25,7 +27,10 @@ export default function Product() {
                 {formatMoney(detailProduct?.price)}
               </p>
               <p className="text-xl">{detailProduct?.description}</p>
-              <button className="rounded-md py-2 text-white bg-black px-6">
+              <button
+                onClick={() => addToCart(detailProduct, detailProduct?.id)}
+                className="rounded-md py-2 text-white bg-black px-6"
+              >
                 Buy Now
               </button>
             </div>
