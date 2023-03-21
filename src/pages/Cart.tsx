@@ -16,7 +16,7 @@ export default function Cart() {
                 <>
                   <div className="flex gap-5 item items-center mb-10">
                     <div className="w-4/12">
-                      <img src={product.images[0]} alt={product.title} />
+                      <img src={product.image} alt={product.title} />
                     </div>
                     <div className="w-4/12">
                       <h1>{product.title}</h1>

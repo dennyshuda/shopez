@@ -8,9 +8,7 @@ export function useProduct() {
 
   async function getAllProducts() {
     try {
-      const response = await axios.get(
-        "https://api.escuelajs.co/api/v1/products?offset=0&limit=21"
-      );
+      const response = await axios.get("https://fakestoreapi.com/products");
       setProducts(response.data);
     } catch (error) {
       console.log(error);

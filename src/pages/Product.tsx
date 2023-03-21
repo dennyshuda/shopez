@@ -19,7 +19,7 @@ export default function Product() {
         ) : (
           <div className="flex gap-5">
             <div className="w-1/2">
-              <img src={detailProduct?.images[0]} alt={detailProduct?.title} />
+              <img src={detailProduct?.image} alt={detailProduct?.title} />
             </div>
             <div className="w-1/2 space-y-5">
               <h1 className="text-3xl font-medium">{detailProduct?.title}</h1>

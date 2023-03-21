@@ -24,10 +24,16 @@ export default function Home() {
                   className="w-3/12 border-2 p-5 border-black rounded-md border-opacity-40"
                 >
                   <Link to={`/product/${product.id}`}>
-                    <img src={product.images[0]} alt="" />
+                    <img
+                      className="aspect-square"
+                      src={product.image}
+                      alt={product.title}
+                    />
                   </Link>
                   <div className="text-center m-2 space-y-2">
-                    <h1 className="font-medium text-xl">{product.title}</h1>
+                    <h1 className="font-medium text-xl">
+                      {product.title.slice(0, 20) + "..."}
+                    </h1>
                     <p className="font-bold text-2xl">
                       {formatMoney(product.price)}
                     </p>
