@@ -15,7 +15,7 @@ interface CartContextType {
   cart: ProductType[];
   total: number;
   quantity: number;
-  addToCart(product: ProductType, id: number): void;
+  addToCart(product: ProductType | undefined, id: number | undefined): void;
   increaseAmount(id: number): void;
   removeFromCart(id: number): void;
   decreaseAmount(id: number): void;
