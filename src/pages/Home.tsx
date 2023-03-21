@@ -25,7 +25,7 @@ export default function Home() {
                 >
                   <Link to={`/product/${product.id}`}>
                     <img
-                      className="aspect-square"
+                      className="aspect-square object-contain"
                       src={product.image}
                       alt={product.title}
                     />
