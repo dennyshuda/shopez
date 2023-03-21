@@ -1,45 +1,33 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { ProductType } from "../types";
 import Container from "../components/Container";
+import { formatMoney } from "../utils/currency";
+import { useProduct } from "../hooks/useProduct";
 
 export default function Product() {
   const { id } = useParams();
-  const [product, setProduct] = useState<ProductType>();
-  const [loading, setLoading] = useState<boolean>(true);
+  const { products, loading } = useProduct();
 
-  async function getAllProducts() {
-    try {
-      const response = await axios.get(
-        "https://api.escuelajs.co/api/v1/products/" + id
-      );
-      setProduct(response.data);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }
+  const detailProduct = products?.find((item) => item.id === Number(id));
 
-  useEffect(() => {
-    getAllProducts();
-  }, [id]);
   return (
     <div>
       <Container>
         {loading ? (
           "loading"
         ) : (
-          <div className="flex">
+          <div className="flex gap-5">
             <div className="w-1/2">
-              <img src={product?.images[0]} alt="" />
+              <img src={detailProduct?.images[0]} alt={detailProduct?.title} />
             </div>
-            <div className="w-1/2">
-              <h1 className="text-3xl">{product?.title}</h1>
-              <p>{product?.description}</p>
-              <p>${product?.price}</p>
+            <div className="w-1/2 space-y-5">
+              <h1 className="text-3xl font-medium">{detailProduct?.title}</h1>
+              <p className="text-4xl font-bold">
+                {formatMoney(detailProduct?.price)}
+              </p>
+              <p className="text-xl">{detailProduct?.description}</p>
+              <button className="rounded-md py-2 text-white bg-black px-6">
+                Buy Now
+              </button>
             </div>
           </div>
         )}

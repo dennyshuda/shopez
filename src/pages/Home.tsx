@@ -1,33 +1,12 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import Container from "../components/Container";
-import { ProductType } from "../types";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { formatMoney } from "../utils/currency";
+import { useProduct } from "../hooks/useProduct";
 
 export default function Home() {
-  const [products, setProducts] = useState<ProductType[]>();
-  const [loading, setLoading] = useState<boolean>(true);
-
   const { addToCart } = useCart();
-
-  async function getAllProducts() {
-    try {
-      const response = await axios.get(
-        "https://api.escuelajs.co/api/v1/products?offset=0&limit=21"
-      );
-      setProducts(response.data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
+  const { products, loading } = useProduct();
 
   return (
     <div>
